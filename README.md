@@ -50,4 +50,5 @@ AsteroidMLGame is a python based game consisting of a spaceship and asteroids. T
 
 
 ## Pretrained Model
-A pretrained model trained on 1000 episodes could be downloaded [here](https://drive.google.com/drive/folders/15FeuCQdentD1Eay-NZthusjxmKjzQw2q?usp=drive_link)
+- A pretrained model trained on 1000 episodes could be downloaded [here](https://drive.google.com/drive/folders/15FeuCQdentD1Eay-NZthusjxmKjzQw2q?usp=drive_link)
+- The model converged at 919th episode with a reward of 4095 and an epsilon of 0.01
