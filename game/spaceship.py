@@ -3,7 +3,6 @@ import os
 import random
 from game.missile import Missile
 
-# Load spaceship image
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 spaceship_img = pygame.image.load(os.path.join(BASE_DIR, "../images/spaceship.png"))
 spaceship_img = pygame.transform.scale(spaceship_img, (50, 50))

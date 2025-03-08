@@ -5,7 +5,7 @@ import torch.optim as optim
 import numpy as np
 import random
 from collections import deque
-from tqdm import trange  # Progress bar
+from tqdm import trange
 import pygame
 import matplotlib.pyplot as plt
 from RLenv import RLenv
@@ -88,16 +88,13 @@ class DQNAgent:
         self.target_net.load_state_dict(self.policy_net.state_dict())
 
 if __name__ == "__main__":
-    # Create log folder if it doesn't exist.
     log_dir = "log"
     if not os.path.exists(log_dir):
         os.makedirs(log_dir)
-    # Create models folder if it doesn't exist.
     models_dir = "models"
     if not os.path.exists(models_dir):
         os.makedirs(models_dir)
     
-    # Open CSV log file and write header.
     log_file_path = os.path.join(log_dir, "training_metrics.csv")
     log_file = open(log_file_path, "w")
     log_file.write("Episode,Total Reward,Epsilon\n")
@@ -106,7 +103,6 @@ if __name__ == "__main__":
     screen = pygame.display.set_mode((800,600))
     pygame.display.set_caption("Asteroid Game")
     
-    # Our state vector has 8 dimensions.
     state_dim = 8
     action_dim = 6
 

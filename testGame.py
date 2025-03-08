@@ -3,11 +3,11 @@ import torch
 from RLenv import RLenv
 from DQN_agent import DQNAgent
 
-def load_trained_agent(checkpoint_path="/home/sahabaj/Documents/asteroidGame/episodes/1000/models/best_dqn_policy.pth", state_dim=8, action_dim=6):
+def load_trained_agent(checkpoint_path="/models/best_dqn_policy.pth", state_dim=8, action_dim=6):
     agent = DQNAgent(state_dim, action_dim)
     agent.policy_net.load_state_dict(torch.load(checkpoint_path))
     agent.policy_net.eval()
-    agent.epsilon = 0.0  # Use greedy policy for evaluation
+    agent.epsilon = 0.0  #using greedy policy for evaluation
     return agent
 
 def run_evaluation(episodes=5):
@@ -16,15 +16,13 @@ def run_evaluation(episodes=5):
     pygame.display.set_caption("Autonomous Spaceship Evaluation")
     
     env = RLenv(800,600, debug=True)
-    agent = load_trained_agent("/home/sahabaj/Documents/asteroidGame/episodes/1000/models/best_dqn_policy.pth")
+    agent = load_trained_agent("/models/best_dqn_policy.pth")
     
-    # Metrics lists to compute averages over episodes.
     all_episode_rewards = []
     all_shooting_accuracies = []
     
     for ep in range(episodes):
         state_dict = env.reset()
-        # Reset spaceship metrics as well.
         env.spaceship.missiles_fired = 0  
         state = [
             state_dict["spaceship_x"],
@@ -59,12 +57,12 @@ def run_evaluation(episodes=5):
             ]
             ep_reward += reward
             env.render(screen)
-            clock.tick(30)  # Run at 30 FPS
+            clock.tick(30)
             
             if done:
                 running_episode = False
         
-        # Compute shooting accuracy: asteroids_shot / missiles_fired (if any missile fired)
+        #computing shooting accuracy: asteroids_shot / missiles_fired
         if env.spaceship.missiles_fired > 0:
             shooting_accuracy = env.asteroids_shot / env.spaceship.missiles_fired
         else:
@@ -77,7 +75,6 @@ def run_evaluation(episodes=5):
     
     pygame.quit()
     
-    # Optionally, print average metrics over all test episodes:
     avg_reward = sum(all_episode_rewards) / len(all_episode_rewards)
     avg_accuracy = sum(all_shooting_accuracies) / len(all_shooting_accuracies)
     print(f"Average Reward over {episodes} episodes: {avg_reward:.2f}")

@@ -20,8 +20,7 @@ class RLenv:
         self.done = False
         self.font = pygame.font.Font(None, 36)
         self.asteroids_shot = 0
-        # Set detection radius to 200 pixels
-        self.detection_radius = 200
+        self.detection_radius = 200         #Set detection radius to 200 pixels
 
         BASE_DIR = os.path.dirname(os.path.abspath(__file__))
         bg_path = os.path.join(BASE_DIR, "images/background.png")
@@ -49,7 +48,7 @@ class RLenv:
         return self.get_state()
     
     def get_state(self):
-        # Use the closest asteroid for state representation.
+        #using the closest asteroid for state representation
         closest = min(self.asteroids, key=lambda ast: abs(ast.x - self.spaceship.x) + abs(ast.y - self.spaceship.y))
         spaceship_center = (self.spaceship.x + self.spaceship.width/2, self.spaceship.y + self.spaceship.height/2)
         asteroid_center = (closest.x + closest.size/2, closest.y + closest.size/2)
@@ -57,14 +56,14 @@ class RLenv:
                              (spaceship_center[1]-asteroid_center[1])**2)
         max_distance = math.sqrt(self.width**2 + self.height**2)
         normalized_distance = distance / max_distance
-        # For state reporting, we use a threshold of 150 for collision risk.
+        #we are use a threshold of 150 pixels for collision risk
         collision_risk = 1 if distance < 150 else 0  
         state = {
             "spaceship_x": self.spaceship.x / self.width,
             "spaceship_y": self.spaceship.y / self.height,
             "asteroid_x": closest.x / self.width,
             "asteroid_y": closest.y / self.height,
-            "asteroid_vel": closest.vel_y / 8,  # Assuming max vertical speed is 8
+            "asteroid_vel": closest.vel_y / 8,
             "missile_ready": 1 if self.spaceship.shoot_cooldown == 0 else 0,
             "lives": self.lives,
             "score": self.score,
@@ -94,11 +93,11 @@ class RLenv:
             self.spaceship.y += self.spaceship.vel
         elif action == 5:
             if self.spaceship.shoot_cooldown == 0:
-                # Use the detector to see if any asteroid is inside the circle.
+                #using the detector to see if any asteroid is inside the circle
                 detected = detect_incoming(self.spaceship, self.asteroids, self.detection_radius)
-                # Check if the closest asteroid is approaching (vertical speed > 0)
+                #checking if the closest asteroid is approaching (vertical speed > 0)
                 approaching = 1 if closest.vel_y > 0 else 0
-                # Fire as soon as at least one asteroid is detected and the closest is approaching.
+                #shooting the missike as soon as at least one asteroid is detected and the closest is approaching
                 if len(detected) > 0 and approaching:
                     print("Explicit shoot action! (Asteroid detected in circle)")
                     target = min(detected, key=lambda ast: math.sqrt(
@@ -110,7 +109,6 @@ class RLenv:
                 else:
                     print("Shoot action ignored: no asteroid in detection zone.")
                     reward -= 5
-        # Decrease shoot cooldown (ensure it doesn't get negative)
         if self.spaceship.shoot_cooldown > 0:
             self.spaceship.shoot_cooldown -= 1
         self.spaceship.x = max(0, min(self.width - self.spaceship.width, self.spaceship.x))
@@ -125,7 +123,7 @@ class RLenv:
                 reward -= 1
         for missile in self.spaceship.missiles[:]:
             missile.move()
-            # Remove missile if it goes off-screen.
+            #removing the missile if it goes off-screen
             if missile.x < 0 or missile.x > self.width or missile.y < 0 or missile.y > self.height:
                 try:
                     self.spaceship.missiles.remove(missile)

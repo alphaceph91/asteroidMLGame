@@ -1,32 +1,19 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-"""
-Created on Sat Feb 22 16:45:32 2025
-
-@author: sahabaj
-"""
-
 import pygame
 import random
 import os
 
-# Initialize Pygame
 pygame.init()
 
-# Screen dimensions
 WIDTH, HEIGHT = 800, 600
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("ML Asteroid Game")
 
-# Colors
 WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
 RED = (255, 0, 0)
 
-# Get the directory of the script
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
-# Load images
 spaceship_img = pygame.image.load(os.path.join(BASE_DIR, "images/spaceship2.png"))
 spaceship_img = pygame.transform.scale(spaceship_img, (50, 50))
 asteroid_img1 = pygame.image.load(os.path.join(BASE_DIR, "images/asteroid1.png"))
@@ -37,7 +24,6 @@ missile_img = pygame.image.load(os.path.join(BASE_DIR, "images/missile.png"))
 missile_img = pygame.transform.scale(missile_img, (10, 20))
 explosion_img = pygame.image.load(os.path.join(BASE_DIR, "images/explosion.png"))
 
-# Font for Game Over text
 font = pygame.font.Font(None, 74)
 
 def show_game_over():
@@ -46,7 +32,7 @@ def show_game_over():
     pygame.display.update()
     pygame.time.delay(2000)
 
-# Spaceship class
+#SPACESHIP
 class Spaceship:
     def __init__(self):
         self.x = WIDTH // 2
@@ -79,7 +65,7 @@ class Spaceship:
     def get_rect(self):
         return pygame.Rect(self.x, self.y, self.width, self.height)
 
-# Missile class
+#MISSILE
 class Missile:
     def __init__(self, x, y):
         self.x = x
@@ -95,7 +81,7 @@ class Missile:
     def get_rect(self):
         return pygame.Rect(self.x, self.y, 10, 20)
 
-# Asteroid class
+#ASTEROID
 class Asteroid:
     def __init__(self):
         self.x = random.randint(0, WIDTH)
@@ -116,7 +102,7 @@ class Asteroid:
     def get_rect(self):
         return pygame.Rect(self.x, self.y, self.size, self.size)
 
-# Game loop
+#GAME LOOP
 running = True
 clock = pygame.time.Clock()
 spaceship = Spaceship()
@@ -133,18 +119,15 @@ while running:
     spaceship.move()
     spaceship.shoot()
     spaceship.update()
-    
-    # Move and draw asteroids
+
     for asteroid in asteroids:
         asteroid.move()
         asteroid.draw()
         
-        # Check for collision with spaceship
         if spaceship.get_rect().colliderect(asteroid.get_rect()):
             show_game_over()
             running = False
         
-        # Check for missile collision
         for missile in spaceship.missiles:
             if missile.get_rect().colliderect(asteroid.get_rect()):
                 screen.blit(explosion_img, (asteroid.x, asteroid.y))
@@ -153,7 +136,6 @@ while running:
                 asteroids.append(Asteroid())
                 break
     
-    # Draw spaceship
     spaceship.draw()
     
     pygame.display.update()
