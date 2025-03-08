@@ -3,7 +3,6 @@ AsteroidMLGame is a python based game consisting of a spaceship and asteroids. T
 
 ![Image](https://github.com/alphaceph91/asteroidMLGame/blob/main/image.png)
 
-
 ## Features
 
 ### Custom Reinforcement Learning Environment
@@ -49,4 +48,4 @@ AsteroidMLGame is a python based game consisting of a spaceship and asteroids. T
 
 
 ## Pretrained Model
-A pretrained model trained on 1000 episodes could be downloaded [here](https://drive.google.com/file/d/1BuXFjz6ulCyllO7rUMMra5Xdt1SybN-f/view?usp=sharing)
+A pretrained model trained on 1000 episodes could be downloaded [here](https://drive.google.com/drive/folders/15FeuCQdentD1Eay-NZthusjxmKjzQw2q?usp=sharing)
