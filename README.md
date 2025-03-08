@@ -26,13 +26,13 @@ AsteroidMLGame is a python based game consisting of a spaceship and asteroids. T
 ## How to Run
 
 ### Training
-- Run the DQN training script (python DQN_agent.py) to train your agent
+- Run the DQN training script (python [DQN_agent.py](https://github.com/alphaceph91/asteroidMLGame/blob/main/DQN_agent.py) to train your agent
 - Training metrics will be logged in as a CSV file in log/training_metrics.csv
 - A performance plot is saved as log/training_performance.png
 - Model checkpoints are saved in the models/ folder
 
 ### Evaluation
-- Once training is completed, trained agent can be evaluated (python load_checkpoint.py)
+- Once training is completed, trained agent can be evaluated (python [testGame.py](https://github.com/alphaceph91/asteroidMLGame/blob/main/testGame.py)
 - This script loads the trained model (e.g., models/best_dqn_policy.pth), sets epsilon to 0, and runs test episodes to display performance metrics and visually demonstrate the agent's behavior
 - You can integrate the trained agent into the main game loop (e.g., in main.py) to have the spaceship controlled autonomously in a live game setting
 
